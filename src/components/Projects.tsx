@@ -16,12 +16,12 @@ export function Projects() {
         {projects.items.map((p) => (
           <motion.article key={p.name} variants={fadeUp} className="group flex flex-col overflow-hidden rounded-card bg-white">
             <div className="relative aspect-[4/3] overflow-hidden">
+              {/* The photo itself already carries the status banner (Fuldtegnet / Afsluttet), so no badge is layered on top here. */}
               <img
                 src={p.photo}
-                alt={p.name}
+                alt={`${p.name}, ${p.status}`}
                 className="h-full w-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
               />
-              <span className="absolute top-5 left-5 rounded-full bg-navy px-4 py-2 text-[12px] font-semibold text-white">{p.status}</span>
             </div>
 
             <div className="flex flex-1 flex-col p-7 md:p-9">
@@ -47,7 +47,7 @@ export function Projects() {
 
       <div className="mt-8 flex flex-col items-start gap-6">
         <p className="text-[13px] text-muted">{projects.note}</p>
-        <Button href="#kontakt">{projects.more}</Button>
+        <Button href="#udbud">{projects.more}</Button>
       </div>
     </section>
   );

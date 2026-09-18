@@ -49,8 +49,21 @@ export function Nav({ ready }: { ready: boolean }) {
           onClick={() => setOpen((v) => !v)}
           className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] rounded-full bg-navy lg:hidden"
         >
-          <motion.span className="block h-[1.5px] w-5 bg-white" animate={{ rotate: open ? 45 : 0, y: open ? 3.25 : 0 }} />
-          <motion.span className="block h-[1.5px] w-5 bg-white" animate={{ rotate: open ? -45 : 0, y: open ? -3.25 : 0 }} />
+          <motion.span
+            className="block h-[1.5px] w-5 rounded-full bg-white"
+            animate={{ rotate: open ? 45 : 0, y: open ? 6.5 : 0 }}
+            transition={{ duration: 0.35, ease: EASE_EXPO }}
+          />
+          <motion.span
+            className="block h-[1.5px] w-5 rounded-full bg-white"
+            animate={{ opacity: open ? 0 : 1 }}
+            transition={{ duration: 0.2, ease: EASE_EXPO }}
+          />
+          <motion.span
+            className="block h-[1.5px] w-5 rounded-full bg-white"
+            animate={{ rotate: open ? -45 : 0, y: open ? -6.5 : 0 }}
+            transition={{ duration: 0.35, ease: EASE_EXPO }}
+          />
         </button>
       </motion.header>
 

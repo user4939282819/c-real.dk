@@ -35,7 +35,7 @@ export const hero = {
   headline: ['Vi investerer i', 'udvikling og udlejning', 'af ejendomme'],
   text: 'Databaseret byudvikling og ejendomsudvikling. C-Real er registreret hos Finanstilsynet som forvalter af alternative investeringsfonde.',
   primary: { label: 'Se projekter', href: '#projekter' },
-  secondary: { label: 'Bestil udbudsmateriale', href: '#kontakt' },
+  secondary: { label: 'Bestil udbudsmateriale', href: '#udbud' },
 };
 
 export const about = {
@@ -249,7 +249,7 @@ export const banner = {
   author: 'C-Real',
   photo: '/photos/cph-1635861674.jpg',
   primary: { label: 'Se projekter', href: '#projekter' },
-  secondary: { label: 'Bestil udbudsmateriale', href: '#kontakt' },
+  secondary: { label: 'Bestil udbudsmateriale', href: '#udbud' },
 };
 
 export const contact = {
@@ -278,6 +278,42 @@ export const investorContact = {
   photo: '/team/nicklas.jpg',
   intro: 'Har du spørgsmål til et projekt eller vil du have tilsendt udbudsmateriale, så ring direkte til Nicklas.',
   cta: 'Ring til Nicklas',
+  bubbleLabel: 'Tal med en investeringsrådgiver',
+  bubbleCollapsed: 'Kontakt os',
+};
+
+export const skipLink = { label: 'Videre til indhold', target: '#main' };
+
+/** The full investor-material dossier for the current fund, matching the order page on c-real.dk. */
+export const dossier = {
+  label: 'Om Fonden',
+  status: 'Fuldtegnet',
+  name: 'C-Real Troldebakkerne II ApS',
+  photo: '/projects/troldebakkerne-ii.jpg',
+  intro: [
+    'C-Real Troldebakkerne II ApS er en attraktiv investeringsmulighed i gennemførelsen af et byggeprojekt på Troldebakkerne i Helsinge og derefter salg af projektet, når byggeriet er afsluttet, og de færdigopførte ejendomme er i drift.',
+    'Projektgrunden er på 12.556 kvm, og det endelige boligareal er på 8.160 kvm. På nabogrundene er der allerede opført boligejendomme, og dette byggeprojekt er det sidste i området.',
+  ],
+  facts: [
+    { label: 'Status', value: 'Fuldtegnet' },
+    { label: 'Type', value: 'Opførsel' },
+    { label: 'Boligareal', value: '8.160 kvm' },
+    { label: 'Antal boliger', value: '105' },
+    { label: 'Forventet afkast', value: '20,18 %*', positive: true },
+    { label: 'Egenkapitalindskud', value: 'Op til DKK 74 mio.' },
+    { label: 'Investeringsperiode', value: '18 måneder' },
+    { label: 'Forventet exit', value: '4. kvartal 2027' },
+    { label: 'Minimumsindskud', value: 'DKK 750.000' },
+  ],
+  note: '*Afkast er efter omkostninger.',
+  formTitle: 'Bestil udbudsmateriale for C-Real Troldebakkerne II ApS',
+  fields: { name: 'Navn', email: 'E-mail', phone: 'Telefon', postal: 'Postnummer' },
+  consent:
+    'Ja tak. Jeg giver samtykke til at modtage markedsføringsmateriale om investeringer på e-mail, SMS og telefon og gennem annoncering på de sociale medier fra C-Real ApS, da det er en betingelse for at modtage det ønskede materiale. Du kan altid trække dit samtykke tilbage ved at skrive til info@c-real.dk.',
+  submit: 'Bestil materiale',
+  success: 'Tak. Vi sender udbudsmaterialet til din e-mail.',
+  kidLabel: 'PRIIPs Key Information Documents (KID)',
+  kidLink: 'KID for C-Real Troldebakkerne II ApS, download',
 };
 
 export const location = {
