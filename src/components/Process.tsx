@@ -78,6 +78,8 @@ export function Process() {
                       src={s.photo}
                       alt=""
                       className="h-full w-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <span className="figure absolute top-4 left-4 rounded-full bg-navy px-3 py-1 text-[12px] text-white">0{i + 1}</span>
                   </div>

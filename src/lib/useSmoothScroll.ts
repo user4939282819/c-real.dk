@@ -10,6 +10,13 @@ export function useSmoothScroll(enabled: boolean) {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Touch devices get native scrolling: Lenis's rAF-driven virtual scroll
+    // was fighting the browser's own compositor thread on mobile, competing
+    // with every scroll-linked animation on the page for main-thread time
+    // and reading as lag/jank/near-freezes on lower-powered phones. Desktop
+    // wheel scrolling keeps the smooth easing; touch keeps the OS's own
+    // buttery native scroll, which needs no help.
+    if (window.matchMedia('(pointer: coarse)').matches) return;
 
     const lenis = new Lenis({
       duration: 1.15,

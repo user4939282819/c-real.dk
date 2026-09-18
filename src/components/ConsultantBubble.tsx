@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion';
 import { investorContact } from '../data/content';
 import { EASE_EXPO } from '../lib/motion';
 
@@ -13,13 +13,12 @@ export function ConsultantBubble({ ready }: { ready: boolean }) {
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
 
-  useEffect(() => {
-    if (!ready) return;
-    const onScroll = () => setShow(window.scrollY > window.innerHeight * 0.6);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [ready]);
+  // Framer Motion's scrollY is a single shared, rAF-batched listener rather
+  // than a raw `scroll` event handler re-rendering React on every pixel.
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, 'change', (v) => {
+    if (ready) setShow(v > window.innerHeight * 0.6);
+  });
 
   const tel = `tel:${investorContact.phone.replace(/\s/g, '')}`;
 

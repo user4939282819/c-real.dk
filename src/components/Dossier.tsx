@@ -22,7 +22,7 @@ export function Dossier() {
       <div className="overflow-hidden rounded-card bg-white">
         {/* The brochure composite is its own artwork (three pages, ~3:2), so it's shown whole rather than cropped to a wide banner. */}
         <div className="relative aspect-[3/2] md:aspect-[2/1]">
-          <img src={dossier.photo} alt={`${dossier.name}, ${dossier.status}`} className="absolute inset-0 h-full w-full object-cover object-top" />
+          <img src={dossier.photo} alt={`${dossier.name}, ${dossier.status}`} className="absolute inset-0 h-full w-full object-cover object-top" loading="lazy" decoding="async" />
         </div>
 
         <div className="grid gap-10 p-6 md:grid-cols-2 md:gap-16 md:p-12">

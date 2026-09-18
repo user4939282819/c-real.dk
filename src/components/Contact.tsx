@@ -24,7 +24,7 @@ export function Contact() {
               className="flex flex-col overflow-hidden rounded-card bg-navy text-white shadow-[0_24px_60px_-30px_rgba(20,29,61,0.45)] will-change-transform"
             >
               <div className="relative aspect-[4/4.2] overflow-hidden">
-                <img src={p.photo} alt={p.name} className="absolute inset-0 h-full w-full object-cover object-[center_18%]" />
+                <img src={p.photo} alt={p.name} className="absolute inset-0 h-full w-full object-cover object-[center_18%]" loading="lazy" decoding="async" />
               </div>
               <div className="flex flex-1 flex-col p-7">
                 <h3 className="min-h-[2.3em] text-[clamp(1.35rem,1.8vw,1.6rem)] leading-[1.15] text-white">{p.name}</h3>

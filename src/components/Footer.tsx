@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { motion, useAnimationControls, useInView } from 'framer-motion';
 import { company, footer } from '../data/content';
 import { fadeUp, VIEWPORT } from '../lib/motion';
 import { Button } from './ui/Button';
@@ -13,6 +14,18 @@ const LINK_HREFS: Record<string, string> = {
 
 export function Footer() {
   const marquee = Array.from({ length: 6 }, () => company.name);
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const marqueeInView = useInView(marqueeRef);
+  const marqueeControls = useAnimationControls();
+
+  // Same as Ticker: only spend a frame on this while it's actually on screen.
+  useEffect(() => {
+    if (marqueeInView) {
+      void marqueeControls.start({ x: ['0%', '-50%'], transition: { duration: 110, ease: 'linear', repeat: Infinity } });
+    } else {
+      marqueeControls.stop();
+    }
+  }, [marqueeInView, marqueeControls]);
 
   return (
     <footer className="mx-auto max-w-[1440px] px-4 pb-4 md:px-3">
@@ -65,8 +78,8 @@ export function Footer() {
           <p>{footer.copyright}</p>
         </div>
 
-        <div className="overflow-hidden py-10">
-          <motion.div className="flex w-max whitespace-nowrap" animate={{ x: ['0%', '-50%'] }} transition={{ duration: 110, ease: 'linear', repeat: Infinity }}>
+        <div ref={marqueeRef} className="overflow-hidden py-10">
+          <motion.div className="flex w-max whitespace-nowrap" animate={marqueeControls}>
             {[...marquee, ...marquee].map((w, i) => (
               <span key={i} className="px-10 text-[clamp(6rem,17vw,15rem)] leading-none font-bold tracking-[-0.05em] text-navy">
                 {w}
@@ -76,7 +89,7 @@ export function Footer() {
         </div>
 
         <div className="aspect-[16/6] overflow-hidden">
-          <img src={footer.photo} alt="" className="h-full w-full object-cover" />
+          <img src={footer.photo} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" />
         </div>
       </div>
     </footer>

@@ -81,7 +81,7 @@ export function Team() {
                 transition={{ duration: 0.9, ease: EASE_EXPO }}
                 style={{ pointerEvents: hidden ? 'none' : 'auto' }}
               >
-                <img src={p.photo} alt={p.name} className="h-full w-full object-cover object-[center_22%]" draggable={false} />
+                <img src={p.photo} alt={p.name} className="h-full w-full object-cover object-[center_22%]" draggable={false} loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent" />
               </motion.button>
             );

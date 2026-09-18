@@ -16,7 +16,11 @@ export function Nav({ ready }: { ready: boolean }) {
   return (
     <>
       <motion.header
-        className="fixed top-4 left-1/2 z-50 flex items-center gap-2 rounded-full border border-white/70 bg-white/85 py-2 pr-2 pl-3 shadow-[0_12px_44px_-14px_rgba(20,29,61,0.28)] backdrop-blur-xl md:gap-6 md:pl-5"
+        // No backdrop-blur below md: a `fixed` element with backdrop-filter
+        // forces the browser to recomposite it on every scroll frame, which
+        // is a well-known source of scroll jank on mobile Safari/Chrome.
+        // The solid-ish bg-white/85 alone keeps it legible without that cost.
+        className="fixed top-4 left-1/2 z-50 flex items-center gap-2 rounded-full border border-white/70 bg-white/95 py-2 pr-2 pl-3 shadow-[0_12px_44px_-14px_rgba(20,29,61,0.28)] md:gap-6 md:bg-white/85 md:pl-5 md:backdrop-blur-xl"
         initial={{ y: -60, x: '-50%', opacity: 0 }}
         animate={ready ? { y: 0, x: '-50%', opacity: 1, scale: scrolled ? 0.96 : 1 } : {}}
         transition={{ duration: 0.9, delay: 0.25, ease: EASE_EXPO }}

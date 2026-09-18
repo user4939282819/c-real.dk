@@ -9,7 +9,7 @@ function Frame({ src, alt, className, offset }: { src: string; alt: string; clas
 
   return (
     <motion.div ref={ref} style={{ y }} className={`overflow-hidden rounded-card ${className}`}>
-      <img src={src} alt={alt} className="h-full w-full object-cover" />
+      <img src={src} alt={alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
     </motion.div>
   );
 }

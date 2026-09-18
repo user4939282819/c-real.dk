@@ -22,6 +22,8 @@ export function Expertise() {
               src={c.photo}
               alt={c.title}
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+              loading="lazy"
+              decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-8 md:p-9">
