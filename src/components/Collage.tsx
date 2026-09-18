@@ -42,7 +42,7 @@ export function Collage() {
     <section className="mx-auto max-w-[1440px] px-4 pt-14 md:px-16 md:pt-20">
       <div className="grid grid-cols-2 items-center gap-4 md:grid-cols-[1fr_2.6fr_1fr] md:gap-16">
         <Frame src={photos.spire} alt="Vor Frelsers Kirke set fra luften" className="aspect-[3/4]" offset={40} />
-        <VideoFrame src="/video/cph-aerial-1.mp4" className="order-first col-span-2 aspect-[16/9] md:order-none md:col-span-1" offset={-20} />
+        <VideoFrame src="/video/cph-city.mp4" className="order-first col-span-2 aspect-[16/9] md:order-none md:col-span-1" offset={-20} />
         <Frame src={photos.dome} alt="Marmorkirken ved solnedgang" className="aspect-[3/4]" offset={40} />
       </div>
     </section>

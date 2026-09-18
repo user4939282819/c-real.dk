@@ -145,7 +145,7 @@ export const expertise = {
     {
       title: 'Udviklingsprojekter',
       text: 'Fra lokalplan og byggetilladelse til opførelse af færdige boliger.',
-      video: '/video/cph-aerial-1.mp4',
+      video: '/video/cph-city.mp4',
     },
     {
       title: 'Udlejningsejendomme',
