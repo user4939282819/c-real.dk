@@ -5,7 +5,6 @@ import { Preloader } from './components/Preloader';
 import { Cursor } from './components/Cursor';
 import { ScrollProgress } from './components/ui/ScrollProgress';
 import { ConsultantBubble } from './components/ConsultantBubble';
-import { CookieBubble } from './components/CookieBubble';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { VideoFeature } from './components/VideoFeature';
@@ -50,7 +49,6 @@ export default function App() {
       <Cursor />
       <ScrollProgress />
       <ConsultantBubble ready={ready} />
-      <CookieBubble />
       <Nav ready={ready} />
       <main id="main">
         <Hero ready={ready} />

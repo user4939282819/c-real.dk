@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { investmentTypes } from '../data/content';
 import { fadeUp, VIEWPORT } from '../lib/motion';
@@ -6,9 +6,36 @@ import { ArrowCircle } from './ui/ArrowCircle';
 import { YieldStat } from './ui/YieldStat';
 import { PhaseShowcase } from './PhaseShowcase';
 
-/** Ruled list; the active row drives an animated scene in the sticky column. */
+/**
+ * Ruled list; the active row drives the animated scene in the sticky
+ * column. Driven primarily by scroll position (whichever row crosses the
+ * centre band of the viewport becomes active), with hover/focus as an
+ * instant override for anyone stationary and pointing at a row.
+ */
 export function InvestmentTypes() {
   const [active, setActive] = useState(0);
+  const rowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  useEffect(() => {
+    const rows = rowRefs.current.filter((el): el is HTMLAnchorElement => el !== null);
+    if (rows.length === 0) return;
+
+    // Only the band across the vertical centre of the viewport counts, so
+    // the active row is always "the one you're currently looking at."
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length === 0) return;
+        const topMost = visible.reduce((a, b) => (a.boundingClientRect.top < b.boundingClientRect.top ? a : b));
+        const index = rows.indexOf(topMost.target as HTMLAnchorElement);
+        if (index !== -1) setActive(index);
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
+
+    rows.forEach((row) => observer.observe(row));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="investeringstyper" className="mx-auto max-w-[1440px] px-4 py-14 md:px-16 md:py-20">
@@ -22,6 +49,9 @@ export function InvestmentTypes() {
           {investmentTypes.items.map((t, i) => (
             <motion.a
               key={t.name}
+              ref={(el) => {
+                rowRefs.current[i] = el;
+              }}
               href="#kontakt"
               onMouseEnter={() => setActive(i)}
               onFocus={() => setActive(i)}
