@@ -48,7 +48,7 @@ export function Location() {
         </motion.div>
 
         <motion.div
-          className="relative aspect-[4/3] overflow-hidden rounded-card bg-card lg:aspect-auto lg:min-h-[460px]"
+          className="relative aspect-[4/3] overflow-hidden rounded-card bg-card [isolation:isolate] lg:aspect-auto lg:min-h-[460px]"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"

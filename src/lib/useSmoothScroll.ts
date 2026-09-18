@@ -50,7 +50,11 @@ export function useSmoothScroll(enabled: boolean) {
       if (!target) return;
       event.preventDefault();
       if (lenisRef.current) {
-        lenisRef.current.scrollTo(target as HTMLElement, { offset: -80, duration: 1.4 });
+        // No explicit offset here: Lenis already reads the target's CSS
+        // scroll-margin-top (set per section) to clear the floating nav.
+        // Adding an offset on top of that was double-counting the gap and
+        // landing short of the section, showing the end of the previous one.
+        lenisRef.current.scrollTo(target as HTMLElement, { duration: 1.4 });
       } else {
         target.scrollIntoView({ behavior: 'smooth' });
       }
