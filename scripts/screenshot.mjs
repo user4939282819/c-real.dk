@@ -8,10 +8,7 @@ const HEIGHT = Number(process.argv[4] ?? 900);
 mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch();
-const page = await browser.newPage({
-  viewport: { width: WIDTH, height: HEIGHT },
-  deviceScaleFactor: 1,
-});
+const page = await browser.newPage({ viewport: { width: WIDTH, height: HEIGHT }, deviceScaleFactor: 1 });
 
 const errors = [];
 page.on('console', (m) => {
@@ -20,22 +17,19 @@ page.on('console', (m) => {
 page.on('pageerror', (e) => errors.push('PAGEERROR: ' + e.message));
 
 await page.goto('http://localhost:5173/', { waitUntil: 'networkidle', timeout: 60000 });
-
-// Let the preloader finish and webfonts settle before judging anything.
 await page.waitForTimeout(4200);
 
-const screens = 9;
+// Walk the whole document so every section is judged the way a visitor sees it.
+const total = await page.evaluate(() => document.body.scrollHeight);
+const step = Math.round(HEIGHT * 0.92);
+const screens = Math.ceil(total / step);
 for (let i = 0; i < screens; i++) {
-  await page.evaluate((n) => window.scrollTo(0, n * window.innerHeight * 0.92), i);
-  await page.waitForTimeout(1500);
+  await page.evaluate((y) => window.scrollTo(0, y), i * step);
+  await page.waitForTimeout(1400);
   await page.screenshot({ path: `${OUT}/${String(i).padStart(2, '0')}.png` });
 }
 
-await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-await page.waitForTimeout(1400);
-await page.screenshot({ path: `${OUT}/99-footer.png` });
-
-console.log('page height:', await page.evaluate(() => document.body.scrollHeight));
+console.log('page height:', total, 'screens:', screens);
 console.log('errors:', errors.length ? JSON.stringify(errors, null, 2) : 'none');
 
 await browser.close();

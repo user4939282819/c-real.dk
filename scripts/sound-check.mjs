@@ -1,0 +1,13 @@
+﻿import { chromium } from 'playwright';
+const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await page.goto('http://localhost:5173/', { waitUntil: 'networkidle', timeout: 60000 });
+await page.waitForTimeout(4500);
+await page.evaluate(() => document.querySelector('video')?.scrollIntoView({ block: 'center' }));
+await page.waitForTimeout(2500);
+const before = await page.evaluate(() => { const v = document.querySelector('video'); return { muted: v.muted, playing: !v.paused, t: v.currentTime }; });
+await page.getByRole('button', { name: 'Slå lyd til' }).click();
+await page.waitForTimeout(3500);
+const after = await page.evaluate(() => { const v = document.querySelector('video'); return { muted: v.muted, volume: v.volume, playing: !v.paused, t: v.currentTime, audioDecodedBytes: v.webkitAudioDecodedByteCount, label: document.querySelector('button[aria-pressed]')?.textContent.trim() }; });
+console.log(JSON.stringify({ before, after }));
+await browser.close();

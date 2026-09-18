@@ -8,270 +8,300 @@ export const company = {
     'C-Real er registreret hos Finanstilsynet som forvalter af alternative investeringsfonde.',
 };
 
-export const nav = [
-  { label: 'Om C-Real', href: '#om' },
-  { label: 'Investeringstyper', href: '#investeringstyper' },
-  { label: 'Vores tilgang', href: '#tilgang' },
-  { label: 'Track record', href: '#track-record' },
-  { label: 'Aktuelle projekter', href: '#projekter' },
-  { label: 'Kontakt', href: '#kontakt' },
-];
+export const photos = {
+  nordhavn: '/photos/cph-1729457997.jpg',
+  spire: '/photos/cph-1742160813.jpg',
+  skyline: '/photos/cph-1635861674.jpg',
+  dome: '/photos/cph-1775627602.jpg',
+  christianshavn: '/photos/cph-1584048140.jpg',
+  lakes: '/photos/cph-1584048139.jpg',
+  circles: '/photos/cph-1698317475.jpg',
+  aboutLeft: '/photos/about-left.jpg',
+  aboutRight: '/photos/about-right.jpg',
+  footer: '/photos/footer.jpg',
+};
+
+export const nav = {
+  left: [
+    { label: 'Om C-Real', href: '#om' },
+    { label: 'Investeringstyper', href: '#investeringstyper' },
+    { label: 'Projekter', href: '#projekter' },
+    { label: 'Team', href: '#team' },
+  ],
+  cta: { label: 'Kontakt os', href: '#kontakt' },
+};
 
 export const hero = {
-  eyebrow: 'Registreret hos Finanstilsynet · FTID 23377',
-  headlineLines: ['Vi investerer i', 'udviklings- og', 'udlejningsejendomme'],
-  subheadline: 'Databaseret by- og ejendomsudvikling',
-  primaryCta: 'Bestil udbudsmateriale',
-  secondaryCta: 'Se track record',
-  marquee: [
-    'Makroanalyse',
-    'Mikroanalyse',
-    'Lokalplan',
-    'Byggetilladelse',
-    'Opførsel',
-    'Udlejning',
-    'Flyttemønstre',
-    'Boligefterspørgsel',
-  ],
+  headline: ['Vi investerer i', 'udvikling og udlejning', 'af ejendomme'],
+  text: 'Databaseret byudvikling og ejendomsudvikling. C-Real er registreret hos Finanstilsynet som forvalter af alternative investeringsfonde.',
+  primary: { label: 'Se projekter', href: '#projekter' },
+  secondary: { label: 'Bestil udbudsmateriale', href: '#kontakt' },
 };
 
-export const heroStats = [
-  { value: 30.3, suffix: '%', label: 'Realiseret afkast', note: 'Troldebakkerne, efter omkostninger' },
-  { value: 105, suffix: '', label: 'Boliger', note: 'Troldebakkerne II, under opførelse' },
-  { value: 8160, suffix: ' kvm', label: 'Boligareal', note: 'Samlet i nuværende projekt' },
-];
-
-export const intro = {
-  label: 'Om C-Real',
-  statement:
-    'C-Real er et investeringshus inden for fast ejendom med investeringer i udviklingsprojekter og udlejningsejendomme som speciale.',
+export const about = {
+  title: ['Databaseret byudvikling', 'og ejendomsudvikling'],
+  text: 'C-Real er et investeringshus inden for fast ejendom med investeringer i udviklingsprojekter og udlejningsejendomme som speciale.',
   body: [
-    'Vores projekter er sunde og stabile. Hvert projekt hviler på en grundig markedsanalyse af bolig- og ejendomsmarkedet på makro- og mikroniveau, flyttemønstre og boligefterspørgsel — før der allokeres kapital.',
-    company.regulator,
+    'Projekter udbudt af C-Real er kendetegnet ved at være sunde og stabile samt baseret på dybdegående analyser af markedet. Eksempelvis analyserer C-Real det danske boligmarked og ejendomsmarked på både makroniveau og mikroniveau for at undersøge flyttemønstre og afdække, hvilke boligtyper der efterspørges.',
+    'C-Real er registreret hos Finanstilsynet som forvalter af alternative investeringsfonde.',
   ],
 };
 
-export type InvestmentType = {
-  id: string;
-  index: string;
-  name: string;
-  icon: string;
-  definition: string;
-  workLabel: string;
-  work: string;
-  returnLabel: string;
-  returnBody: string;
-  horizon: string;
-  yieldValue: number;
-  yieldLabel: string;
-};
-
-export const investmentTypes: InvestmentType[] = [
-  {
-    id: 'lokalplan',
-    index: '01',
-    name: 'Lokalplan',
-    icon: '/brand/icon-lokalplan.png',
-    definition:
-      'Gennem investeringstypen "Lokalplan" transformeres råjord og barmarksarealer til jord, der må bygges på.',
-    workLabel: 'Forarbejde',
-    work: 'Fokus på at identificere projektmuligheder med stort afkastpotentiale gennem C-Reals analysemetode.',
-    returnLabel: 'Afkast',
-    returnBody:
-      'Realiseres når lokalplanen vedtages, og jorden kan sælges til investor.',
-    horizon: '9–24 måneder',
-    yieldValue: 25,
-    yieldLabel: '+25%',
-  },
-  {
-    id: 'byggetilladelse',
-    index: '02',
-    name: 'Byggetilladelse',
-    icon: '/brand/icon-byggetilladelse.png',
-    definition:
-      'Investeringstypen "Byggetilladelse" omhandler byggemodning af jord frem til et fuldt realiserbart byggeprojekt.',
-    workLabel: 'Forarbejde',
-    work: 'Projektet konkretiseres arkitektonisk, teknisk og budgetmæssigt med projektering og myndighedsdialog.',
-    returnLabel: 'Afkast',
-    returnBody: 'Realiseres når projektet opnår byggetilladelse og sælges videre.',
-    horizon: '9–18 måneder',
-    yieldValue: 20,
-    yieldLabel: '+20%',
-  },
-  {
-    id: 'opforelse',
-    index: '03',
-    name: 'Opførelse',
-    icon: '/brand/icon-byggeri.png',
-    definition: 'I investeringstypen "Opførelse" gennemføres et byggeprojekt.',
-    workLabel: 'Forarbejde',
-    work: 'Budget- og tidsrammer fastlægges med bygherre- og projektledelse.',
-    returnLabel: 'Afkast',
-    returnBody: 'Realiseres ved salg af færdigopført byggeri.',
-    horizon: '12–18 måneder',
-    yieldValue: 15,
-    yieldLabel: '+15%',
-  },
-  {
-    id: 'udlejning',
-    index: '04',
-    name: 'Udlejning',
-    icon: '/brand/icon-udlejning.png',
-    definition: 'Investeringstypen "Udlejning" indebærer drift og udlejning af ejendomme.',
-    workLabel: 'Løbende arbejde',
-    work: 'Optimering af ejendomsdrift, huslejejustering og vedligehold.',
-    returnLabel: 'Afkast',
-    returnBody: 'Genereres løbende fra driftsudbyttet og gældsnedbringelse.',
-    horizon: 'Løbende',
-    yieldValue: 7,
-    yieldLabel: '+7%',
-  },
+export const stats = [
+  { value: 21, decimals: 0, suffix: '', label: 'Antal projekter', icon: 'layers' },
+  { value: 1700000, decimals: 0, suffix: '', label: 'Antal kvadratmeter', icon: 'area' },
+  { value: 30.3, decimals: 1, suffix: ' %', label: 'Realiseret afkast, Troldebakkerne', icon: 'percent', positive: true },
+  { value: 105, decimals: 0, suffix: '', label: 'Boliger under opførelse', icon: 'building' },
 ];
 
-export const approach = {
-  label: 'Vores tilgang',
-  title: 'Analysen',
-  lead: 'Analysen gennemføres i to hovedfaser: først en landsdækkende makroanalyse, dernæst en mikroanalyse, der identificerer de mest attraktive lokationer.',
-  phases: [
+export const ticker = [
+  'Databaseret ejendomsudvikling',
+  'Registreret hos Finanstilsynet',
+  'Udviklingsprojekter',
+  'Udlejningsejendomme',
+  'Bredgade, København K',
+];
+
+export const projects = {
+  title: 'Projekter',
+  sub: 'Projekter udbudt af C-Real, realiseret og under opførelse.',
+  note: '*Efter omkostninger',
+  items: [
     {
-      id: 'makro',
-      index: '01',
-      name: 'Makroanalyse',
-      scope: 'Regioner · Landsdele · Kommuner',
-      body: 'Formålet er at identificere Danmarks mest attraktive vækstzoner med potentiale for stabile afkast og værdistigninger. Analysen foretages på tværs af regioner, landsdele og kommuner.',
-      steps: [],
+      name: 'C-Real Troldebakkerne',
+      status: 'Afsluttet',
+      photo: '/projects/troldebakkerne.jpg',
+      headline: { value: 30.3, decimals: 1, label: 'Realiseret afkast*' },
+      facts: [
+        { label: 'Lokation', value: 'Helsinge' },
+        { label: 'Investeringstype', value: 'Byggemodning' },
+        { label: 'Forventet afkast', value: '26 %' },
+        { label: 'Investeringsperiode', value: '9 måneder' },
+        { label: 'Realiseret afkast', value: '30,3 %*', positive: true },
+      ],
     },
     {
-      id: 'mikro',
-      index: '02',
-      name: 'Mikroanalyse',
-      scope: 'Byer · Lokationer',
-      body: 'Mikroanalysen består af to trin, der indsnævrer analysen fra by til konkret lokation.',
-      steps: [
-        {
-          index: 'Trin 1',
-          body: 'Identificering af de mest attraktive byer inden for en udvalgt region, landsdel eller kommune.',
-        },
-        {
-          index: 'Trin 2',
-          body: 'Detaljeret vurdering af, hvor investeringspotentialet er størst inden for den valgte by.',
-        },
+      name: 'C-Real Troldebakkerne II',
+      status: 'Fuldtegnet',
+      photo: '/projects/troldebakkerne-ii.jpg',
+      headline: { value: 20.18, decimals: 2, label: 'Forventet afkast*' },
+      facts: [
+        { label: 'Lokation', value: 'Helsinge' },
+        { label: 'Investeringstype', value: 'Opførelse' },
+        { label: 'Antal enheder', value: '105 lejligheder' },
+        { label: 'Investeringsperiode', value: '18 måneder' },
+        { label: 'Forventet afkast', value: '20,18 %*', positive: true },
       ],
     },
   ],
-  quote: {
-    text: 'Denne kombination af makro- og mikroanalyse sikrer, at investeringer foretages på et solidt grundlag',
-    author: 'Christian Sørensen',
-    role: 'Chief Development Officer',
-  },
+  more: 'Bestil udbudsmateriale',
 };
 
-export const trackRecord = {
-  label: 'Track record',
-  title: 'Realiserede projekter',
-  lead: 'Afkast opgjort efter omkostninger.',
-  projects: [
+export const investmentTypes = {
+  title: 'Investeringstyper',
+  sub: 'Fire faser i ejendomsudviklingen, hver med sin egen horisont og afkastprofil.',
+  items: [
     {
-      id: 'troldebakkerne',
-      name: 'C-Real Troldebakkerne',
-      location: 'Helsinge',
-      type: 'Byggemodning',
-      status: 'Afsluttet',
-      period: '9 måneder',
-      expected: 26,
-      realized: 30.3,
-      realizedLabel: '30,3 %',
-      expectedLabel: '26 %',
+      name: 'Lokalplan',
+      lead: 'Barmark, råjord og transformationsprojekter',
+      text: 'Råjord og barmarksarealer transformeres til jord, der må bygges på. Afkastet realiseres, når lokalplanen vedtages, og jorden sælges til investor.',
+      horizon: '9 til 24 måneder',
+      yieldValue: 25,
+      photo: '/photos/cph-1698317475.jpg',
     },
     {
-      id: 'troldebakkerne-ii',
-      name: 'C-Real Troldebakkerne II',
-      location: 'Helsinge',
-      type: 'Opførelse',
-      status: 'Fuldtegnet',
-      period: '18 måneder',
-      expected: 20.18,
-      realized: null,
-      realizedLabel: null,
-      expectedLabel: '20,18 %',
+      name: 'Byggetilladelse',
+      lead: 'Grund til et fuldt realiseret byggeprojekt',
+      text: 'Byggemodning af jord frem til et fuldt realiserbart byggeprojekt. Projektet konkretiseres arkitektonisk, teknisk og budgetmæssigt.',
+      horizon: '9 til 18 måneder',
+      yieldValue: 20,
+      photo: '/photos/cph-1742160813.jpg',
+    },
+    {
+      name: 'Opførelse',
+      lead: 'Gennemførsel af byggeri',
+      text: 'Gennemførelse af byggeprojektet med fastlagte budgetter og tidsrammer. Afkastet realiseres ved salg af det færdigopførte byggeri.',
+      horizon: '12 til 18 måneder',
+      yieldValue: 15,
+      photo: '/photos/cph-1729457997.jpg',
+    },
+    {
+      name: 'Udlejning',
+      lead: 'Udbytte og opsparing',
+      text: 'Drift og udlejning af ejendomme. Afkastet genereres løbende fra driftsudbyttet og gældsnedbringelse.',
+      horizon: 'Løbende',
+      yieldValue: 7,
+      photo: '/photos/cph-1584048140.jpg',
     },
   ],
 };
 
-export const currentProject = {
-  label: 'Aktuelle projekter',
-  status: 'Fuldtegnet',
-  name: 'C-Real Troldebakkerne II ApS',
-  location: 'Troldebakkerne, Helsinge',
-  description:
-    'Investeringsmulighed i byggeprojekt med efterfølgende salg efter færdiggørelse.',
-  facts: [
-    { label: 'Type', value: 'Opførsel' },
-    { label: 'Antal boliger', value: '105' },
-    { label: 'Boligareal', value: '8.160 kvm' },
-    { label: 'Grundstørrelse', value: '12.556 kvm' },
-    { label: 'Forventet afkast', value: '20,18 %', highlight: true },
-    { label: 'Investeringsperiode', value: '18 måneder' },
-    { label: 'Egenkapitalindskud', value: 'Op til DKK 74 mio.' },
-    { label: 'Minimumsindskud', value: 'DKK 750.000' },
-    { label: 'Forventet exit', value: '4. kvartal 2027' },
+export const expertise = {
+  title: 'Vores fokus',
+  sub: 'Vi investerer på tværs af udviklingsprojekter og udlejningsejendomme.',
+  cards: [
+    {
+      title: 'Udviklingsprojekter',
+      text: 'Fra lokalplan og byggetilladelse til opførelse af færdige boliger.',
+      photo: '/photos/cph-1635861674.jpg',
+    },
+    {
+      title: 'Udlejningsejendomme',
+      text: 'Stabile, driftsoptimerede ejendomme med løbende udbytte og opsparing.',
+      photo: '/photos/udlejning-ejendomme.jpg',
+    },
   ],
-  primaryCta: 'Bestil udbudsmateriale',
-  secondaryCta: 'Download KID',
 };
 
-export const leadership = [
-  { name: 'Benny Buchardt Andersen', role: 'Chief Executive Officer', email: 'bba@c-real.dk', phone: '+45 2338 3476' },
-  { name: 'Christian Sørensen', role: 'Chief Development Officer', email: 'chs@c-real.dk', phone: '+45 2944 4592' },
-  { name: 'Gustav Edgard', role: 'Chief Operating Officer', email: 'gue@c-real.dk', phone: '+45 4272 7681' },
-  { name: 'Jesper Stolbjerg', role: 'Chief Financial Officer', email: 'jes@c-real.dk', phone: '+45 3140 0770' },
-];
+export const process = {
+  title: 'Vores tilgang',
+  sub: 'Analysen gennemføres i to hovedfaser: først en landsdækkende makroanalyse, dernæst en mikroanalyse, der identificerer de mest attraktive lokationer.',
+  quote: 'Kombinationen af makroanalyse og mikroanalyse sikrer, at investeringer foretages på et solidt grundlag.',
+  quoteBy: 'Christian Sørensen, Chief Development Officer',
+  steps: [
+    {
+      title: 'Makroanalyse',
+      scope: 'Regioner, landsdele og kommuner',
+      text: 'Formålet er at identificere Danmarks mest attraktive vækstzoner med potentiale for stabile afkast og værdistigninger. Analysen foretages på tværs af regioner, landsdele og kommuner.',
+      photo: '/phases/lokalplan.jpg',
+      icon: 'search',
+    },
+    {
+      title: 'Mikroanalyse',
+      scope: 'Byer og konkrete lokationer',
+      text: 'Første trin identificerer de mest attraktive byer inden for en udvalgt region, landsdel eller kommune. Andet trin vurderer detaljeret, hvor investeringspotentialet er størst inden for den valgte by.',
+      photo: '/photos/cph-1742160813.jpg',
+      icon: 'pin',
+    },
+    {
+      title: 'Projektering',
+      scope: 'Arkitektur, teknik og budget',
+      text: 'Projektet konkretiseres arkitektonisk, teknisk og budgetmæssigt med projektering og myndighedsdialog frem mod byggetilladelse.',
+      photo: '/phases/byggetilladelse.jpg',
+      icon: 'layers',
+    },
+    {
+      title: 'Realisering',
+      scope: 'Byggeri, salg eller udlejning',
+      text: 'Byggeriet gennemføres med fastlagte budgetter og tidsrammer, hvorefter afkastet realiseres for investorerne ved salg eller løbende udlejning.',
+      photo: '/photos/realisering.jpg',
+      icon: 'check',
+    },
+  ],
+};
+
+export const team = {
+  title: 'Menneskene bag',
+  sub: 'Ledelsen, der står bag analysen, projekterne og dialogen med investorerne.',
+  people: [
+    { name: 'Benny Buchardt Andersen', role: 'Chief Executive Officer', email: 'bba@c-real.dk', phone: '+45 2338 3476', photo: '/team/benny.jpg' },
+    { name: 'Christian Sørensen', role: 'Chief Development Officer', email: 'chs@c-real.dk', phone: '+45 2944 4592', photo: '/team/christian.jpg' },
+    { name: 'Gustav Edgard', role: 'Chief Operating Officer', email: 'gue@c-real.dk', phone: '+45 4272 7681', photo: '/team/gustav.jpg' },
+    { name: 'Jesper Stolbjerg', role: 'Chief Financial Officer', email: 'jes@c-real.dk', phone: '+45 3140 0770', photo: '/team/jesper.jpg' },
+  ],
+  call: 'Ring',
+};
+
+export const video = {
+  src: 'https://c-real.dk/wp-content/uploads/2026-05-27-CHS-lang.mp4',
+  heading: 'Investeringer på et solidt grundlag',
+  quote:
+    'Kombinationen af makroanalyse og mikroanalyse sikrer, at investeringer foretages på et solidt grundlag.',
+  name: 'Christian Sørensen',
+  role: 'Chief Development Officer',
+  sound: 'Slå lyd til',
+  mute: 'Slå lyd fra',
+  watch: 'Se filmen med lyd',
+};
+
+export const salesTeam = {
+  title: 'Tal med os',
+  sub: 'Har du spørgsmål til et projekt eller vil du have tilsendt udbudsmateriale, så ring direkte.',
+  people: [
+    {
+      name: 'Nicklas Mikkelsen',
+      role: 'Head of Investor Communication & Reporting',
+      phone: '+45 4422 0499',
+      email: 'nmm@c-real.dk',
+      photo: '/team/nicklas.jpg',
+    },
+    {
+      name: 'Kevin Pedersen',
+      role: 'Investment Consultant',
+      phone: '+45 3820 0658',
+      email: 'kwp@c-real.dk',
+      photo: '/team/kevin.jpg',
+    },
+    {
+      name: 'Kenneth Lindblad',
+      role: 'Investment Consultant',
+      phone: '+45 3820 0656',
+      email: 'kel@c-real.dk',
+      photo: '/team/kenneth.jpg',
+    },
+  ],
+  call: 'Ring',
+  write: 'Skriv',
+};
+
+export const banner = {
+  quote: 'Projekter udbudt af C-Real er kendetegnet ved at være sunde og stabile samt baseret på dybdegående analyser af markedet.',
+  author: 'C-Real',
+  photo: '/photos/cph-1635861674.jpg',
+  primary: { label: 'Se projekter', href: '#projekter' },
+  secondary: { label: 'Bestil udbudsmateriale', href: '#kontakt' },
+};
+
+export const contact = {
+  title: ['Lad os tale om', 'din investering'],
+  text: 'Udfyld formularen, så sender vi udbudsmateriale og KID for det aktuelle projekt.',
+  phone: '+45 4422 0499',
+  email: 'nmm@c-real.dk',
+  contactName: 'Nicklas Mikkelsen, Head of Investor Communication & Reporting',
+  formTitle: 'Dine oplysninger',
+  fields: { name: 'Fulde navn', email: 'E-mail', phone: 'Telefonnummer' },
+  typeLabel: 'Investeringstype',
+  types: ['Lokalplan', 'Byggetilladelse', 'Opførelse', 'Udlejning'],
+  investorLabel: 'Investerer som',
+  investorOptions: ['Privat', 'Selskab'],
+  sizeLabel: 'Investeringsramme',
+  sizeOptions: ['DKK 750.000 til 2 mio.', 'DKK 2 til 5 mio.', 'DKK 5 til 10 mio.', 'Over DKK 10 mio.'],
+  submit: 'Send',
+  success: 'Tak. Vi sender materialet til din e-mail.',
+};
 
 export const investorContact = {
   name: 'Nicklas Mikkelsen',
   role: 'Head of Investor Communication & Reporting',
-  email: 'nmm@c-real.dk',
   phone: '+45 4422 0499',
+  email: 'nmm@c-real.dk',
+  photo: '/team/nicklas.jpg',
+  intro: 'Har du spørgsmål til et projekt eller vil du have tilsendt udbudsmateriale, så ring direkte til Nicklas.',
+  cta: 'Ring til Nicklas',
 };
 
-export const leaderVideo = {
-  label: 'Fra ledelsen',
-  title: 'Derfor investerer vi, hvor data peger hen',
-  body: 'Christian Sørensen om analysemetoden bag hvert projekt, hvordan vi udvælger lokationer, og hvad investorer kan forvente af et samarbejde med C-Real.',
-  name: 'Christian Sørensen',
-  role: 'Chief Development Officer',
-  /* The film already running on c-real.dk. */
-  src: 'https://c-real.dk/wp-content/uploads/2026-05-27-CHS-lang.mp4',
-  poster: '/brand/afsluttet.jpg',
-};
-
-export const contact = {
-  label: 'Kontakt',
-  title: 'Bestil udbudsmateriale',
-  body: 'Udfyld formularen, så sender vi udbudsmateriale og KID for det aktuelle projekt. Vi vender tilbage inden for én arbejdsdag.',
-  fields: {
-    name: 'Navn',
-    email: 'E-mail',
-    phone: 'Telefon',
-    interest: 'Investeringsinteresse',
-    message: 'Besked',
-  },
-  interestOptions: [
-    'Lokalplan — 9–24 måneder',
-    'Byggetilladelse — 9–18 måneder',
-    'Opførelse — 12–18 måneder',
-    'Udlejning — løbende',
-    'Ikke afklaret endnu',
-  ],
-  submit: 'Modtag materiale',
-  disclaimer:
-    'Minimumsindskud for aktuelle projekter er DKK 750.000. Materialet udleveres alene til brug for din egen vurdering.',
-  success: 'Tak. Vi sender materialet til din e-mail inden for én arbejdsdag.',
+export const location = {
+  title: 'Find os',
+  sub: 'Vi holder til på Bredgade i det indre København, få minutter fra Kongens Nytorv.',
+  addressLines: ['C-Real ApS', 'Bredgade 45B', '1260 København K'],
+  query: 'Bredgade 45B, 1260 København K, Danmark',
+  google: 'Åbn i Google Maps',
+  apple: 'Åbn i Apple Maps',
 };
 
 export const footer = {
-  links: ['Cookie- og privatlivspolitik', 'Juridiske erklæringer'],
-  copyright: '© 2026 C-Real ApS',
-  riskNote:
-    'Investering i fast ejendom er forbundet med risiko. Historiske afkast er ikke en pålidelig indikator for fremtidige afkast.',
+  statement: ['Åben for nye investorer', 'og partnerskaber, der', 'skaber varige værdier.'],
+  cta: 'Kontakt os',
+  columns: [
+    { items: ['Om C-Real', 'Investeringstyper', 'Projekter', 'Kontakt', 'Find os'] },
+    { items: ['Cookiepolitik og privatlivspolitik', 'Juridiske erklæringer'] },
+  ],
+  /* Placeholders until C-Real supplies their real page URLs. */
+  social: [
+    { label: 'LinkedIn', href: '#' },
+    { label: 'Facebook', href: '#' },
+    { label: 'Trustpilot', href: '#' },
+  ],
+  copyright: '© 2026 C-Real ApS. Alle rettigheder forbeholdes.',
+  photo: '/photos/footer.jpg',
 };

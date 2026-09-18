@@ -9,7 +9,7 @@ export const transition = (duration = 0.9, delay = 0): Transition => ({
   ease: EASE_EXPO,
 });
 
-/** Clip-path driven line reveal — the signature entrance for headlines. */
+/** Clip-path driven line reveal, the signature entrance for headlines. */
 export const maskLine: Variants = {
   hidden: { y: '110%' },
   visible: (i: number = 0) => ({

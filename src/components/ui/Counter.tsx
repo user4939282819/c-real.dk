@@ -1,38 +1,43 @@
 import { useEffect, useRef, useState } from 'react';
-import { useInView, useSpring } from 'framer-motion';
+import { animate, useInView } from 'framer-motion';
+import { EASE_EXPO } from '../../lib/motion';
 
-type Props = {
+const fmt = (decimals: number) =>
+  new Intl.NumberFormat('da-DK', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
+/** Counts once to the real figure when it enters view; tween so it lands exactly. */
+export function Counter({
+  value,
+  decimals = 0,
+  prefix = '',
+  suffix = '',
+  duration = 1.6,
+  immediate = false,
+  className = '',
+}: {
   value: number;
   decimals?: number;
-  suffix?: string;
   prefix?: string;
+  suffix?: string;
+  duration?: number;
+  /** Start on mount rather than on entering the viewport (for overlays that appear on interaction). */
+  immediate?: boolean;
   className?: string;
-};
-
-const formatter = (decimals: number) =>
-  new Intl.NumberFormat('da-DK', {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  });
-
-/** Counts to the target once, when the number first enters the viewport. */
-export function Counter({ value, decimals = 0, suffix = '', prefix = '', className = '' }: Props) {
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-10% 0px' });
-  const [display, setDisplay] = useState(0);
-
-  const spring = useSpring(0, { stiffness: 55, damping: 22, mass: 1 });
+  const [n, setN] = useState(0);
 
   useEffect(() => {
-    if (inView) spring.set(value);
-  }, [inView, spring, value]);
-
-  useEffect(() => spring.on('change', (latest) => setDisplay(latest)), [spring]);
+    if (!inView && !immediate) return;
+    const c = animate(0, value, { duration, ease: EASE_EXPO, onUpdate: setN });
+    return () => c.stop();
+  }, [inView, immediate, value, duration]);
 
   return (
-    <span ref={ref} className={className}>
+    <span ref={ref} className={`tnum ${className}`}>
       {prefix}
-      {formatter(decimals).format(display)}
+      {fmt(decimals).format(n)}
       {suffix}
     </span>
   );

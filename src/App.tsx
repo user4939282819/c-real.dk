@@ -2,21 +2,27 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSmoothScroll } from './lib/useSmoothScroll';
 import { Preloader } from './components/Preloader';
 import { Cursor } from './components/Cursor';
+import { ScrollProgress } from './components/ui/ScrollProgress';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
-import { Intro } from './components/Intro';
+import { VideoFeature } from './components/VideoFeature';
+import { Collage } from './components/Collage';
+import { About } from './components/About';
+import { Ticker } from './components/Ticker';
+import { TrackRecordStats } from './components/TrackRecordStats';
+import { Projects } from './components/Projects';
 import { InvestmentTypes } from './components/InvestmentTypes';
-import { Approach } from './components/Approach';
-import { TrackRecord } from './components/TrackRecord';
-import { CurrentProject } from './components/CurrentProject';
-import { LeaderVideo } from './components/LeaderVideo';
+import { Expertise } from './components/Expertise';
+import { Process } from './components/Process';
+import { Team } from './components/Team';
+import { Banner } from './components/Banner';
 import { Contact } from './components/Contact';
+import { Location } from './components/Location';
 import { Footer } from './components/Footer';
 
 export default function App() {
   const [ready, setReady] = useState(false);
 
-  // Scroll stays locked behind the preloader so the hero reveal always plays.
   useSmoothScroll(ready);
 
   useEffect(() => {
@@ -32,19 +38,24 @@ export default function App() {
     <>
       <Preloader onDone={onPreloaderDone} />
       <Cursor />
+      <ScrollProgress />
       <Nav ready={ready} />
-
       <main>
         <Hero ready={ready} />
-        <Intro />
+        <VideoFeature />
+        <Collage />
+        <About />
+        <Ticker />
+        <TrackRecordStats />
+        <Projects />
         <InvestmentTypes />
-        <Approach />
-        <TrackRecord />
-        <CurrentProject />
-        <LeaderVideo />
+        <Expertise />
+        <Process />
+        <Team />
+        <Banner />
         <Contact />
+        <Location />
       </main>
-
       <Footer />
     </>
   );
