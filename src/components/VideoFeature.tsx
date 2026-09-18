@@ -4,15 +4,18 @@ import { video } from '../data/content';
 import { EASE_EXPO } from '../lib/motion';
 
 /**
- * Their film, playing on its own the moment it scrolls into view (muted, as
- * browsers require for autoplay). Sound is one tap away; the frame widens as
- * it enters. On desktop the quote sits over the picture, on phones below it.
+ * Their film, playing on its own the moment it scrolls into view. Sound is
+ * on by default (most browsers allow this on scroll-triggered play once the
+ * visitor has already interacted with the page at all, e.g. clicked a nav
+ * link to get here); if a browser's autoplay policy blocks unmuted playback
+ * outright, it falls back to muted so the film still plays rather than
+ * sitting frozen, and the sound button lights up to invite one tap.
  */
 export function VideoFeature() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const inView = useInView(sectionRef, { amount: 0.35 });
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
   const [withControls, setWithControls] = useState(false);
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'start 0.15'] });
@@ -22,8 +25,18 @@ export function VideoFeature() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (inView) void v.play().catch(() => undefined);
-    else v.pause();
+    if (!inView) {
+      v.pause();
+      return;
+    }
+    v.play().catch(() => {
+      // Autoplay-with-sound was blocked by the browser's policy: fall back
+      // to muted so the film still plays instead of staying frozen, and let
+      // the button reflect the real (muted) state.
+      v.muted = true;
+      setMuted(true);
+      void v.play().catch(() => undefined);
+    });
   }, [inView]);
 
   // Unmuting must happen inside the click handler itself so browsers treat it as a user gesture.

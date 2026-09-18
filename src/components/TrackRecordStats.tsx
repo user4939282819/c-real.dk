@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { stats } from '../data/content';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { photos, stats } from '../data/content';
 import { fadeUp, stagger, VIEWPORT } from '../lib/motion';
 import { Counter } from './ui/Counter';
 
@@ -63,36 +63,12 @@ function StatCell({ stat }: { stat: (typeof stats)[number] }) {
   );
 }
 
-/**
- * Their own hero background film (the same one that plays behind the
- * headline on c-real.dk) reused here as the backdrop for the track record
- * figures, playing only while the section is actually on screen.
- */
+/** The city photo that used to sit behind the hero, now the backdrop for the track record figures. */
 export function TrackRecordStats() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const inView = useInView(sectionRef, { amount: 0.2 });
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (inView) void v.play().catch(() => undefined);
-    else v.pause();
-  }, [inView]);
-
   return (
     <section id="track-record" className="mx-auto max-w-[1440px] px-4 py-6 md:px-3">
-      <div ref={sectionRef} className="relative overflow-hidden rounded-card bg-navy px-8 py-16 text-white md:px-16 md:py-20">
-        <video
-          ref={videoRef}
-          src="/video/track-record-bg.mov"
-          className="absolute inset-0 h-full w-full object-cover"
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden
-        />
+      <div className="relative overflow-hidden rounded-card bg-navy px-8 py-16 text-white md:px-16 md:py-20">
+        <img src={photos.nordhavn} alt="" className="absolute inset-0 h-full w-full object-cover" aria-hidden loading="lazy" decoding="async" />
         <div className="absolute inset-0 bg-navy/75" />
 
         <motion.div className="relative" variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT}>

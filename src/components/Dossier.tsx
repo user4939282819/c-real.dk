@@ -19,15 +19,15 @@ export function Dossier() {
 
   return (
     <section id="udbud" className="mx-auto max-w-[1440px] px-4 py-14 md:px-16 md:py-20">
-      <div className="overflow-hidden rounded-card bg-white">
-        {/* The brochure composite is its own artwork (three pages, ~3:2), so it's shown whole rather than cropped to a wide banner. */}
-        <div className="relative aspect-[3/2] md:aspect-[2/1]">
+      <div className="mx-auto max-w-4xl overflow-hidden rounded-card bg-white">
+        {/* Smaller than before: a header strip rather than a near-full-width poster. */}
+        <div className="relative aspect-[21/9] sm:aspect-[3/1]">
           <img src={dossier.photo} alt={`${dossier.name}, ${dossier.status}`} className="absolute inset-0 h-full w-full object-cover object-top" loading="lazy" decoding="async" />
         </div>
 
-        <div className="grid gap-10 p-6 md:grid-cols-2 md:gap-16 md:p-12">
+        <div className="grid gap-8 p-6 md:grid-cols-2 md:gap-10 md:p-8">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT}>
-            <h2 className="text-[clamp(1.7rem,3.4vw,2.75rem)] text-navy">{dossier.name}</h2>
+            <h2 className="text-[clamp(1.4rem,2.4vw,2rem)] text-navy">{dossier.name}</h2>
             {dossier.intro.map((p) => (
               <p key={p} className="mt-4 text-[15px] leading-relaxed text-body">
                 {p}

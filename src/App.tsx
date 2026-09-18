@@ -55,34 +55,34 @@ export default function App() {
         <Hero ready={ready} />
         <VideoFeature />
         <Collage />
-        <SectionReveal>
+        <SectionReveal direction="up">
           <About />
         </SectionReveal>
         <Ticker />
         <TrackRecordStats />
-        <SectionReveal>
+        <SectionReveal direction="left">
           <Projects />
         </SectionReveal>
-        <SectionReveal>
+        <SectionReveal direction="up">
           <InvestmentTypes />
         </SectionReveal>
-        <SectionReveal>
+        <SectionReveal direction="right">
           <Expertise />
         </SectionReveal>
-        <SectionReveal>
+        <SectionReveal direction="up">
           <Process />
         </SectionReveal>
-        <SectionReveal>
+        <SectionReveal direction="left">
           <Team />
         </SectionReveal>
-        <SectionReveal>
+        <SectionReveal direction="mask">
           <Dossier />
         </SectionReveal>
         <Banner />
-        <SectionReveal>
+        <SectionReveal direction="right">
           <Contact />
         </SectionReveal>
-        <SectionReveal>
+        <SectionReveal direction="up">
           <Location />
         </SectionReveal>
       </main>

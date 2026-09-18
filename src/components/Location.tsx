@@ -38,10 +38,10 @@ export function Location() {
             </p>
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Button href={GOOGLE_LINK} variant="light">
+            <Button href={GOOGLE_LINK} variant="light" external>
               {location.google}
             </Button>
-            <Button href={APPLE_LINK} variant="glass">
+            <Button href={APPLE_LINK} variant="glass" external>
               {location.apple}
             </Button>
           </div>

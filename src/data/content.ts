@@ -36,6 +36,8 @@ export const hero = {
   text: 'Databaseret byudvikling og ejendomsudvikling. C-Real er registreret hos Finanstilsynet som forvalter af alternative investeringsfonde.',
   primary: { label: 'Se projekter', href: '#projekter' },
   secondary: { label: 'Bestil udbudsmateriale', href: '#udbud' },
+  /* Their own hero background film from c-real.dk, moved here from Track Record. */
+  video: '/video/track-record-bg.mov',
 };
 
 export const about = {

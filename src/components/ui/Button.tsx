@@ -30,18 +30,26 @@ export function Button({
   children,
   variant = 'dark',
   size = 'md',
+  external = false,
   className = '',
 }: {
   href: string;
   children: ReactNode;
   variant?: Variant;
   size?: 'sm' | 'md' | 'lg';
+  /** Opens in a new tab. Use for anything that leaves the site (maps, KID downloads, socials) so it never yanks a visitor off a page mid-video/mid-form. */
+  external?: boolean;
   className?: string;
 }) {
   const pad = size === 'sm' ? 'px-5 py-2.5 text-[13px]' : size === 'lg' ? 'px-9 py-[18px] text-[16px]' : 'px-7 py-4 text-[15px]';
 
   return (
-    <a href={href} className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full font-semibold ${pad} ${BASE[variant]} ${className}`}>
+    <a
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+      className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full font-semibold ${pad} ${BASE[variant]} ${className}`}
+    >
       <span
         aria-hidden
         className={`absolute -inset-px translate-y-[102%] rounded-full transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 ${SWEEP[variant]}`}

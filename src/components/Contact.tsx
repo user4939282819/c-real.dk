@@ -12,37 +12,34 @@ export function Contact() {
         <p className="section-sub">{salesTeam.sub}</p>
       </motion.div>
 
-      <motion.div className="mt-10 grid gap-6 md:grid-cols-3" variants={stagger(0.1)} initial="hidden" whileInView="visible" viewport={VIEWPORT}>
+      <motion.div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-5" variants={stagger(0.1)} initial="hidden" whileInView="visible" viewport={VIEWPORT}>
         {salesTeam.people.map((p) => {
           const tel = `tel:${p.phone.replace(/\s/g, '')}`;
           return (
             <motion.article
               key={p.email}
               variants={fadeUp}
-              whileHover={{ y: -6 }}
+              whileHover={{ y: -4 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col overflow-hidden rounded-card bg-navy text-white shadow-[0_24px_60px_-30px_rgba(20,29,61,0.45)] will-change-transform"
+              className="flex flex-col overflow-hidden rounded-card bg-navy text-white shadow-[0_16px_40px_-24px_rgba(20,29,61,0.45)] will-change-transform"
             >
-              <div className="relative aspect-[4/4.2] overflow-hidden">
+              <div className="relative aspect-[4/3.4] overflow-hidden">
                 <img src={p.photo} alt={p.name} className="absolute inset-0 h-full w-full object-cover object-[center_18%]" loading="lazy" decoding="async" />
               </div>
-              <div className="flex flex-1 flex-col p-7">
-                <h3 className="min-h-[2.3em] text-[clamp(1.35rem,1.8vw,1.6rem)] leading-[1.15] text-white">{p.name}</h3>
-                <p className="mt-1 text-[14px] text-white/70">{p.role}</p>
-                <div className="mt-6 flex flex-col gap-1.5 text-[15px]">
+              <div className="flex flex-1 flex-col p-4">
+                <h3 className="min-h-[2.1em] text-[clamp(0.95rem,1.3vw,1.1rem)] leading-[1.2] text-white">{p.name}</h3>
+                <p className="mt-0.5 text-[12px] text-white/70">{p.role}</p>
+                <div className="mt-3 flex flex-col gap-1 text-[12px]">
                   <a href={tel} className="font-semibold text-white hover:underline">
                     {p.phone}
                   </a>
-                  <a href={`mailto:${p.email}`} className="text-white/85 hover:text-white hover:underline">
+                  <a href={`mailto:${p.email}`} className="truncate text-white/85 hover:text-white hover:underline">
                     {p.email}
                   </a>
                 </div>
-                <div className="mt-auto flex flex-wrap gap-3 pt-8">
-                  <Button href={tel} variant="light">
+                <div className="mt-auto pt-4">
+                  <Button href={tel} variant="light" size="sm" className="w-full justify-center">
                     {salesTeam.call} {p.name.split(' ')[0]}
-                  </Button>
-                  <Button href={`mailto:${p.email}`} variant="glass">
-                    {salesTeam.write}
                   </Button>
                 </div>
               </div>
