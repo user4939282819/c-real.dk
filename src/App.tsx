@@ -60,11 +60,11 @@ export default function App() {
         <Ticker />
         <TrackRecordStats />
         <Projects />
-        <Dossier />
         <InvestmentTypes />
         <Expertise />
         <Process />
         <Team />
+        <Dossier />
         <Banner />
         <Contact />
         <Location />

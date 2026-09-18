@@ -289,7 +289,7 @@ export const dossier = {
   label: 'Om Fonden',
   status: 'Fuldtegnet',
   name: 'C-Real Troldebakkerne II ApS',
-  photo: '/projects/troldebakkerne-ii.jpg',
+  photo: '/projects/troldebakkerne-ii-brochure.jpg',
   intro: [
     'C-Real Troldebakkerne II ApS er en attraktiv investeringsmulighed i gennemførelsen af et byggeprojekt på Troldebakkerne i Helsinge og derefter salg af projektet, når byggeriet er afsluttet, og de færdigopførte ejendomme er i drift.',
     'Projektgrunden er på 12.556 kvm, og det endelige boligareal er på 8.160 kvm. På nabogrundene er der allerede opført boligejendomme, og dette byggeprojekt er det sidste i området.',

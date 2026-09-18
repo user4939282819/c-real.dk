@@ -20,9 +20,9 @@ export function Dossier() {
   return (
     <section id="udbud" className="mx-auto max-w-[1440px] px-4 py-14 md:px-16 md:py-20">
       <div className="overflow-hidden rounded-card bg-white">
-        {/* The photo already carries its own Fuldtegnet banner, so the title sits on the card below rather than stacking more text over it. */}
-        <div className="relative aspect-[21/9]">
-          <img src={dossier.photo} alt={`${dossier.name}, ${dossier.status}`} className="absolute inset-0 h-full w-full object-cover" />
+        {/* The brochure composite is its own artwork (three pages, ~3:2), so it's shown whole rather than cropped to a wide banner. */}
+        <div className="relative aspect-[3/2] md:aspect-[2/1]">
+          <img src={dossier.photo} alt={`${dossier.name}, ${dossier.status}`} className="absolute inset-0 h-full w-full object-cover object-top" />
         </div>
 
         <div className="grid gap-10 p-6 md:grid-cols-2 md:gap-16 md:p-12">
