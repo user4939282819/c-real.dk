@@ -1,0 +1,98 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Brand — taken from the live site's Elementor palette. */
+  --color-navy: #141d3d;
+  --color-navy-600: #1e2a54;
+  --color-navy-400: #47527a;
+  --color-body: #4e4e4e;
+  --color-muted: #8a8f9c;
+  --color-line: #e4e7ec;
+  --color-line-strong: #cfd4dd;
+  --color-surface: #f4f5f7;
+  --color-paper: #ffffff;
+  --color-signal: #ffbc7d;
+
+  /* One typeface across the whole site. */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Inter', system-ui, sans-serif;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-feature-settings: 'cv05' 1, 'ss03' 1;
+    overflow-x: hidden;
+  }
+
+  /* Display sizes only read as premium in Inter when tracking is pulled in. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-navy);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
+  ::selection {
+    background-color: var(--color-navy);
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-navy-400);
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font-family: inherit;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--color-navy);
+    outline-offset: 3px;
+  }
+}
+
+@utility eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+}
