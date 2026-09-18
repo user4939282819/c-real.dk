@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { team } from '../data/content';
 import { EASE_EXPO, fadeUp, VIEWPORT } from '../lib/motion';
 
-const AUTOPLAY_MS = 5200;
+const AUTOPLAY_MS = 3800;
 
 /**
  * Leadership carousel. The active portrait sits large and centred; the
@@ -50,45 +50,69 @@ export function Team() {
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
       >
-        <motion.div
-          className="flex items-center justify-center"
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.12}
-          onDragEnd={(_, info) => {
-            if (info.offset.x < -60) go(1);
-            else if (info.offset.x > 60) go(-1);
-          }}
-        >
-          {people.map((p, i) => {
-            const offset = ((i - index + people.length + Math.floor(people.length / 2)) % people.length) - Math.floor(people.length / 2);
-            const active = offset === 0;
-            const hidden = Math.abs(offset) > 1;
-            return (
-              <motion.button
-                key={p.name}
-                type="button"
-                onClick={() => setIndex(i)}
-                aria-label={`Vis ${p.name}`}
-                aria-current={active}
-                className="absolute aspect-[3/4] w-[68vw] max-w-[380px] cursor-pointer overflow-hidden rounded-card md:w-[30vw]"
-                animate={{
-                  x: `${offset * 82}%`,
-                  scale: active ? 1 : 0.82,
-                  opacity: hidden ? 0 : active ? 1 : 0.45,
-                  zIndex: active ? 2 : 1,
-                }}
-                transition={{ duration: 0.9, ease: EASE_EXPO }}
-                style={{ pointerEvents: hidden ? 'none' : 'auto' }}
-              >
-                <img src={p.photo} alt={p.name} className="h-full w-full object-cover object-[center_22%]" draggable={false} loading="lazy" decoding="async" />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent" />
-              </motion.button>
-            );
-          })}
-          {/* Spacer so the absolute cards have a stage to sit on. */}
-          <div className="aspect-[3/4] w-[68vw] max-w-[380px] md:w-[30vw]" aria-hidden />
-        </motion.div>
+        <div className="relative">
+          <motion.div
+            className="flex items-center justify-center"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.12}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -60) go(1);
+              else if (info.offset.x > 60) go(-1);
+            }}
+          >
+            {people.map((p, i) => {
+              const offset = ((i - index + people.length + Math.floor(people.length / 2)) % people.length) - Math.floor(people.length / 2);
+              const active = offset === 0;
+              const hidden = Math.abs(offset) > 1;
+              return (
+                <motion.button
+                  key={p.name}
+                  type="button"
+                  onClick={() => setIndex(i)}
+                  aria-label={`Vis ${p.name}`}
+                  aria-current={active}
+                  className="absolute aspect-[3/4] w-[68vw] max-w-[380px] cursor-pointer overflow-hidden rounded-card md:w-[30vw]"
+                  animate={{
+                    x: `${offset * 82}%`,
+                    scale: active ? 1 : 0.82,
+                    opacity: hidden ? 0 : active ? 1 : 0.45,
+                    zIndex: active ? 2 : 1,
+                  }}
+                  transition={{ duration: 0.9, ease: EASE_EXPO }}
+                  style={{ pointerEvents: hidden ? 'none' : 'auto' }}
+                >
+                  <img src={p.photo} alt={p.name} className="h-full w-full object-cover object-[center_22%]" draggable={false} loading="lazy" decoding="async" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent" />
+                </motion.button>
+              );
+            })}
+            {/* Spacer so the absolute cards have a stage to sit on. */}
+            <div className="aspect-[3/4] w-[68vw] max-w-[380px] md:w-[30vw]" aria-hidden />
+          </motion.div>
+
+          {/* Floating beside the portraits themselves (vertically centred, screen edges of the carousel), not buried under the text block below. */}
+          <button
+            type="button"
+            onClick={() => go(-1)}
+            aria-label="Forrige"
+            className="absolute top-1/2 left-0 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/30 bg-page text-navy shadow-[0_8px_24px_-8px_rgba(20,29,61,0.35)] transition-colors hover:bg-navy hover:text-white sm:left-2 md:left-6"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <path d="M9 2 4 7l5 5" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Næste"
+            className="absolute top-1/2 right-0 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-navy/30 bg-page text-navy shadow-[0_8px_24px_-8px_rgba(20,29,61,0.35)] transition-colors hover:bg-navy hover:text-white sm:right-2 md:right-6"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <path d="m5 2 5 5-5 5" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </button>
+        </div>
 
         <div className="mt-10 flex flex-col items-center gap-6 text-center">
           <AnimatePresence mode="wait">
@@ -123,39 +147,17 @@ export function Team() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex items-center gap-6">
-            <button
-              type="button"
-              onClick={() => go(-1)}
-              aria-label="Forrige"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-navy/30 text-navy transition-colors hover:bg-navy hover:text-white"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path d="M9 2 4 7l5 5" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-            </button>
-            <div className="flex items-center gap-2">
-              {people.map((p, i) => (
-                <button
-                  key={p.name}
-                  type="button"
-                  onClick={() => setIndex(i)}
-                  aria-label={`Gå til ${p.name}`}
-                  className="h-2 rounded-full bg-navy transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                  style={{ width: i === index ? 28 : 8, opacity: i === index ? 1 : 0.3 }}
-                />
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={() => go(1)}
-              aria-label="Næste"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-navy/30 text-navy transition-colors hover:bg-navy hover:text-white"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path d="m5 2 5 5-5 5" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-            </button>
+          <div className="flex items-center gap-2">
+            {people.map((p, i) => (
+              <button
+                key={p.name}
+                type="button"
+                onClick={() => setIndex(i)}
+                aria-label={`Gå til ${p.name}`}
+                className="h-2 rounded-full bg-navy transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                style={{ width: i === index ? 28 : 8, opacity: i === index ? 1 : 0.3 }}
+              />
+            ))}
           </div>
         </div>
       </div>
