@@ -55,16 +55,14 @@ export function Location() {
           viewport={VIEWPORT}
           custom={1}
         >
-          {/* Tinted to the brand: greyscale map, navy wash, so it sits with the rest of the page. */}
           <iframe
             title="Kort over Bredgade 45B, København"
             src={GOOGLE_EMBED}
-            className="absolute inset-0 h-full w-full border-0 grayscale-[0.85] contrast-[1.05]"
+            className="absolute inset-0 h-full w-full border-0"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
-          <div className="pointer-events-none absolute inset-0 bg-navy/10 mix-blend-multiply" />
           <div className="pointer-events-none absolute top-5 left-5 flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-navy shadow-[0_10px_30px_-12px_rgba(20,29,61,0.4)]">
             <span className="h-2 w-2 rounded-full bg-positive" />
             Bredgade 45B

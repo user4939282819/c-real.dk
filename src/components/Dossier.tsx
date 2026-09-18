@@ -20,19 +20,16 @@ export function Dossier() {
   return (
     <section id="udbud" className="mx-auto max-w-[1440px] px-4 py-14 md:px-16 md:py-20">
       <div className="overflow-hidden rounded-card bg-white">
+        {/* The photo already carries its own Fuldtegnet banner, so the title sits on the card below rather than stacking more text over it. */}
         <div className="relative aspect-[21/9]">
-          {/* The photo already carries the Fuldtegnet banner, so only the project name is set over it here. */}
           <img src={dossier.photo} alt={`${dossier.name}, ${dossier.status}`} className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/5 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
-            <h2 className="text-[clamp(1.7rem,3.4vw,2.75rem)] text-white">{dossier.name}</h2>
-          </div>
         </div>
 
         <div className="grid gap-10 p-6 md:grid-cols-2 md:gap-16 md:p-12">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT}>
+            <h2 className="text-[clamp(1.7rem,3.4vw,2.75rem)] text-navy">{dossier.name}</h2>
             {dossier.intro.map((p) => (
-              <p key={p} className="mt-4 text-[15px] leading-relaxed text-body first:mt-0">
+              <p key={p} className="mt-4 text-[15px] leading-relaxed text-body">
                 {p}
               </p>
             ))}
