@@ -4,6 +4,7 @@ import { skipLink } from './data/content';
 import { Preloader } from './components/Preloader';
 import { Cursor } from './components/Cursor';
 import { ScrollProgress } from './components/ui/ScrollProgress';
+import { SectionReveal } from './components/ui/SectionReveal';
 import { ConsultantBubble } from './components/ConsultantBubble';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
@@ -54,18 +55,36 @@ export default function App() {
         <Hero ready={ready} />
         <VideoFeature />
         <Collage />
-        <About />
+        <SectionReveal>
+          <About />
+        </SectionReveal>
         <Ticker />
         <TrackRecordStats />
-        <Projects />
-        <InvestmentTypes />
-        <Expertise />
-        <Process />
-        <Team />
-        <Dossier />
+        <SectionReveal>
+          <Projects />
+        </SectionReveal>
+        <SectionReveal>
+          <InvestmentTypes />
+        </SectionReveal>
+        <SectionReveal>
+          <Expertise />
+        </SectionReveal>
+        <SectionReveal>
+          <Process />
+        </SectionReveal>
+        <SectionReveal>
+          <Team />
+        </SectionReveal>
+        <SectionReveal>
+          <Dossier />
+        </SectionReveal>
         <Banner />
-        <Contact />
-        <Location />
+        <SectionReveal>
+          <Contact />
+        </SectionReveal>
+        <SectionReveal>
+          <Location />
+        </SectionReveal>
       </main>
       <Footer />
     </>
