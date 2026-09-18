@@ -25,6 +25,19 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /*
+     * The real fix for mobile horizontal scroll: overflow-x:hidden was only
+     * set on body, but mobile browsers compute the page's effective layout
+     * width at the html level. The infinite marquee tracks (Ticker, Footer)
+     * are visually clipped by their own overflow-hidden wrapper, but their
+     * un-shrinkable intrinsic width still leaked into that html-level
+     * viewport calculation, silently widening the whole page (~520px
+     * instead of the real ~390px device width) on real mobile browsers.
+     * That's what made everything, including the fixed centered nav and
+     * the preloader, render as if centered on a wider canvas than what's
+     * actually visible without scrolling sideways.
+     */
+    overflow-x: hidden;
   }
 
   section[id] {
