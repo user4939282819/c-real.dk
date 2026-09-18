@@ -145,7 +145,7 @@ export const expertise = {
     {
       title: 'Udviklingsprojekter',
       text: 'Fra lokalplan og byggetilladelse til opførelse af færdige boliger.',
-      photo: '/photos/cph-1635861674.jpg',
+      video: '/video/cph-aerial-1.mp4',
     },
     {
       title: 'Udlejningsejendomme',
@@ -179,7 +179,7 @@ export const process = {
       title: 'Projektering',
       scope: 'Arkitektur, teknik og budget',
       text: 'Projektet konkretiseres arkitektonisk, teknisk og budgetmæssigt med projektering og myndighedsdialog frem mod byggetilladelse.',
-      photo: '/phases/byggetilladelse.jpg',
+      video: '/video/projektering.mp4',
       icon: 'layers',
     },
     {
