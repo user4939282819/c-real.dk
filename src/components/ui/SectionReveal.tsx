@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { motion, type Variants } from 'framer-motion';
+import { useReducedEffects } from '../../lib/useReducedEffects';
 
 type Direction = 'up' | 'left' | 'right' | 'mask';
 
@@ -45,16 +46,29 @@ const VARIANTS: Record<Direction, Variants> = {
   },
 };
 
+/** Phones and reduced-motion get composited properties only: no clip-path, shorter travel. */
+const LIGHT: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export function SectionReveal({ children, direction = 'up', className = '' }: { children: ReactNode; direction?: Direction; className?: string }) {
+  const reduced = useReducedEffects();
+
   return (
     <motion.div
-      variants={VARIANTS[direction]}
+      variants={reduced ? LIGHT : VARIANTS[direction]}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 'some', margin: '0px 0px -12% 0px' }}
-      transition={{ duration: 1.05, ease: EASE, opacity: { duration: 0.7, ease: 'easeOut' } }}
+      transition={
+        reduced
+          ? { duration: 0.6, ease: EASE }
+          : { duration: 1.05, ease: EASE, opacity: { duration: 0.7, ease: 'easeOut' } }
+      }
       className={className}
-      style={{ willChange: 'transform, opacity, clip-path' }}
+      // Only hint the compositor for the duration of the effect that needs it.
+      style={reduced ? undefined : { willChange: 'transform, opacity, clip-path' }}
     >
       {children}
     </motion.div>

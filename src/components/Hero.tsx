@@ -29,13 +29,21 @@ export function Hero({ ready }: { ready: boolean }) {
       <motion.video
         ref={videoRef}
         src={hero.video}
+        poster={hero.poster}
         className="absolute inset-0 h-full w-full object-cover"
         style={{ scale: imgScale }}
         muted
         loop
         playsInline
         autoPlay
-        preload="auto"
+        /*
+         * The poster paints immediately so the hero is never an empty navy
+         * box while the film arrives. preload is metadata rather than auto
+         * because auto pulls the whole file before anything renders, which
+         * on a phone means megabytes of cellular data spent before the
+         * first frame. The film still starts on its own once it can.
+         */
+        preload="metadata"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-navy/15" />
 

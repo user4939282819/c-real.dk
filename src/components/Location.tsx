@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { company, location } from '../data/content';
 import { fadeUp, VIEWPORT } from '../lib/motion';
+import { useReducedEffects } from '../lib/useReducedEffects';
 import { Button } from './ui/Button';
 
 const q = encodeURIComponent(location.query);
@@ -80,10 +81,50 @@ function CopyAddress() {
 }
 
 /**
+ * Whether to mount the live Google embed.
+ *
+ * Measured on a throttled Pixel 7, this iframe was the sole cause of every
+ * dropped frame in the bottom third of the page: blocking google.com took
+ * that stretch from six long frames and a 167ms stall to none and 33ms.
+ * Neither deferring the mount to the viewport nor warming it on idle helped,
+ * because the cost is the embed rendering tiles once it is on screen, not
+ * when it is asked to load.
+ *
+ * So phones get a facade instead: an on-brand card that costs nothing and
+ * mounts the real map on tap. Desktop, which has the headroom, keeps the
+ * live map and simply warms it during an idle moment after first paint. The
+ * facade has a second benefit worth keeping: nothing is requested from
+ * Google at all until the visitor asks for it.
+ */
+function useMapMount() {
+  const facade = useReducedEffects();
+  const [asked, setAsked] = useState(false);
+  const [warm, setWarm] = useState(false);
+
+  useEffect(() => {
+    if (facade) return;
+    const w = window as typeof window & {
+      requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number;
+      cancelIdleCallback?: (h: number) => void;
+    };
+    if (w.requestIdleCallback) {
+      const id = w.requestIdleCallback(() => setWarm(true), { timeout: 2500 });
+      return () => w.cancelIdleCallback?.(id);
+    }
+    const t = setTimeout(() => setWarm(true), 2500);
+    return () => clearTimeout(t);
+  }, [facade]);
+
+  return { showMap: facade ? asked : warm, showFacade: facade && !asked, openMap: () => setAsked(true) };
+}
+
+/**
  * Office location: a navy-toned map in a card, with the address beside it,
  * one tap to open the route in Google Maps, and one to copy the address.
  */
 export function Location() {
+  const { showMap, showFacade, openMap } = useMapMount();
+
   return (
     <section id="find-os" className="mx-auto max-w-[1440px] px-4 py-14 md:px-16 md:py-20">
       <div className="grid gap-6 lg:grid-cols-[1fr_1.7fr]">
@@ -124,14 +165,31 @@ export function Location() {
           viewport={VIEWPORT}
           custom={1}
         >
-          <iframe
-            title="Kort over Bredgade 45B, København"
-            src={GOOGLE_EMBED}
-            className="absolute inset-0 h-full w-full border-0"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-          />
+          {showMap && (
+            <iframe
+              title="Kort over Bredgade 45B, København"
+              src={GOOGLE_EMBED}
+              className="absolute inset-0 h-full w-full border-0"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          )}
+
+          {showFacade && (
+            <button
+              type="button"
+              onClick={openMap}
+              className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-card text-navy"
+            >
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-navy text-white">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M12 21s6-6.2 6-11a6 6 0 1 0-12 0c0 4.8 6 11 6 11Z" />
+                  <circle cx="12" cy="10" r="2.2" />
+                </svg>
+              </span>
+              <span className="text-[15px] font-semibold">{location.showMap}</span>
+            </button>
+          )}
           <div className="pointer-events-none absolute top-5 left-5 flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] font-semibold text-navy shadow-[0_10px_30px_-12px_rgba(20,29,61,0.4)]">
             <span className="h-2 w-2 rounded-full bg-positive" />
             Bredgade 45B

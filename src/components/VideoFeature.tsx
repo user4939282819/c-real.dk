@@ -3,21 +3,6 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { video } from '../data/content';
 import { EASE_EXPO } from '../lib/motion';
 
-/**
- * Their film, playing on its own the moment it scrolls into view.
- *
- * The autoplay policy is the one thing here that cannot be coded around:
- * a browser will not start an unmuted video until the page has received a
- * real user gesture. So this asks for sound first, and if the browser
- * refuses it starts the film muted anyway rather than sitting on a poster,
- * then turns the sound on at the very first gesture the visitor makes
- * anywhere on the page. In practice that is whatever they touch or click
- * next, and Chrome often grants the unmuted start outright on a site with
- * any prior engagement. Either way the film is already running by itself,
- * which is what the play button used to get in the way of.
- *
- * It still pauses when scrolled out of view and resumes on the way back.
- */
 /** Sound on/off for the film. The same control at two sizes, desktop and mobile. */
 function SoundToggle({ muted, onToggle, compact = false }: { muted: boolean; onToggle: () => void; compact?: boolean }) {
   const size = compact ? 15 : 16;
@@ -44,6 +29,21 @@ function SoundToggle({ muted, onToggle, compact = false }: { muted: boolean; onT
   );
 }
 
+/**
+ * Their film, playing on its own the moment it scrolls into view.
+ *
+ * The autoplay policy is the one thing here that cannot be coded around:
+ * a browser will not start an unmuted video until the page has received a
+ * real user gesture. So this asks for sound first, and if the browser
+ * refuses it starts the film muted anyway rather than sitting on a poster,
+ * then turns the sound on at the very first gesture the visitor makes
+ * anywhere on the page. In practice that is whatever they touch or click
+ * next, and Chrome often grants the unmuted start outright on a site with
+ * any prior engagement. Either way the film is already running by itself,
+ * which is what the play button used to get in the way of.
+ *
+ * It still pauses when scrolled out of view and resumes on the way back.
+ */
 export function VideoFeature() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -155,7 +155,7 @@ export function VideoFeature() {
           muted={muted}
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
         />
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/10 to-navy/10 md:from-navy/85" />

@@ -12,7 +12,7 @@ export function Banner() {
   return (
     <section className="mx-auto max-w-[1440px] px-4 py-10 md:px-16">
       <div ref={ref} className="relative aspect-[16/11] overflow-hidden rounded-card md:aspect-[21/10]">
-        <motion.img src={banner.photo} alt="" className="absolute inset-0 h-[120%] w-full object-cover" style={{ y }} />
+        <motion.img src={banner.photo} alt="" className="absolute inset-0 h-[120%] w-full object-cover" style={{ y }} loading="lazy" decoding="async" />
         <div className="absolute inset-0 bg-navy/50" />
         <motion.div className="absolute top-8 right-8 left-8 md:top-12 md:left-12" variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT}>
           <p className="max-w-[20ch] text-[clamp(1.6rem,3.3vw,3.1rem)] font-bold leading-[1.1] tracking-[-0.035em] text-white">{banner.quote}</p>

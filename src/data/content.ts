@@ -37,7 +37,8 @@ export const hero = {
   primary: { label: 'Se projekter', href: '#projekter' },
   secondary: { label: 'Bestil udbudsmateriale', href: '#udbud' },
   /* Their own hero background film from c-real.dk, moved here from Track Record. */
-  video: '/video/track-record-bg.mov',
+  video: '/video/hero.mp4',
+  poster: '/video/hero-poster.jpg',
 };
 
 export const about = {
@@ -324,6 +325,7 @@ export const location = {
   addressLines: ['C-Real ApS', 'Bredgade 45B', '1260 København K'],
   query: 'Bredgade 45B, 1260 København K, Danmark',
   google: 'Åbn i Google Maps',
+  showMap: 'Vis kort',
   copy: 'Kopiér adresse',
   copied: 'Adresse kopieret',
 };

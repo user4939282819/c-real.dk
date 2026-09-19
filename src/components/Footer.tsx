@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion, useAnimationControls, useInView } from 'framer-motion';
+import { useReducedEffects } from '../lib/useReducedEffects';
 import { company, footer } from '../data/content';
 import { fadeUp, VIEWPORT } from '../lib/motion';
 import { Button } from './ui/Button';
@@ -13,7 +14,10 @@ const LINK_HREFS: Record<string, string> = {
 };
 
 export function Footer() {
-  const marquee = Array.from({ length: 6 }, () => company.name);
+  const reduced = useReducedEffects();
+  // Half the copies on a phone: the strip is the widest layer on the page and
+  // every frame of its travel repaints all of it.
+  const marquee = Array.from({ length: reduced ? 3 : 6 }, () => company.name);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const marqueeInView = useInView(marqueeRef);
   const marqueeControls = useAnimationControls();
