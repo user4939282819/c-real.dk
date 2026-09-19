@@ -2,13 +2,10 @@ import { useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { expertise } from '../data/content';
 import { fadeUp, stagger, VIEWPORT } from '../lib/motion';
-import { useSlowVideo } from '../lib/useSlowVideo';
 
 function CardMedia({ photo, video, title }: { photo?: string; video?: string; title: string }) {
   const ref = useRef<HTMLVideoElement>(null);
   const inView = useInView(ref, { amount: 0.3 });
-
-  useSlowVideo(ref);
 
   useEffect(() => {
     const v = ref.current;

@@ -37,6 +37,13 @@ export const hero = {
   primary: { label: 'Se projekter', href: '#projekter' },
   secondary: { label: 'Bestil udbudsmateriale', href: '#udbud' },
   /* Their own hero background film from c-real.dk, moved here from Track Record. */
+  /*
+   * Ambient films are slowed at encode time, not with playbackRate. A rate
+   * of 0.25 on 25fps footage shows roughly six unique frames a second and
+   * holds each one for four display frames, which reads as judder rather
+   * than slow motion. These are re-encoded at 2.5x duration with motion
+   * interpolation, so they are long and smooth at normal speed.
+   */
   video: '/video/hero.mp4',
   poster: '/video/hero-poster.jpg',
 };
