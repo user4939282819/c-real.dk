@@ -165,7 +165,7 @@ export const process = {
       title: 'Makroanalyse',
       scope: 'Regioner, landsdele og kommuner',
       text: 'Formålet er at identificere Danmarks mest attraktive vækstzoner med potentiale for stabile afkast og værdistigninger. Analysen foretages på tværs af regioner, landsdele og kommuner.',
-      photo: '/phases/lokalplan.jpg',
+      video: '/video/makroanalyse.mp4',
       icon: 'search',
     },
     {

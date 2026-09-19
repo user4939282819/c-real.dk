@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { EASE_EXPO } from '../lib/motion';
 import { Counter } from './ui/Counter';
 
@@ -84,37 +85,36 @@ const SCENES: Scene[] = [
   },
 ];
 
-export function PhaseShowcase({ index }: { index: number }) {
+/**
+ * One phase's scene, living in its own box beside its row rather than all
+ * four sharing a single panel. The push-in and the live overlay only start
+ * once the box is actually on screen, so each one plays as you reach it
+ * instead of all four having run before you got there.
+ */
+export function PhaseScene({ index, className = '' }: { index: number; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.4, once: true });
   const scene = SCENES[index] ?? SCENES[0];
 
   return (
-    <div className="relative aspect-[4/5] overflow-hidden rounded-card bg-navy">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: EASE_EXPO }}
-        >
-          <motion.img
-            src={scene.photo}
-            alt={scene.alt}
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: scene.focus ?? '50% 50%' }}
-            initial={{ scale: 1.06 }}
-            animate={{ scale: 1.14 }}
-            transition={{ duration: 9, ease: 'linear' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/15 to-navy/10" />
-          {scene.overlay}
-          <div className="absolute right-6 bottom-6 left-6 md:right-8 md:bottom-8 md:left-8">
-            <p className="text-[13px] text-white/70">{scene.phase}</p>
-            <p className="text-[clamp(1.4rem,2vw,1.9rem)] font-bold tracking-[-0.03em] text-white">{scene.title}</p>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+    <div ref={ref} className={`relative overflow-hidden rounded-card bg-navy ${className}`}>
+      <motion.img
+        src={scene.photo}
+        alt={scene.alt}
+        className="absolute inset-0 h-full w-full object-cover"
+        style={{ objectPosition: scene.focus ?? '50% 50%' }}
+        initial={{ scale: 1.06 }}
+        animate={inView ? { scale: 1.14 } : { scale: 1.06 }}
+        transition={{ duration: 9, ease: 'linear' }}
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/15 to-navy/10" />
+      {inView && scene.overlay}
+      <div className="absolute right-6 bottom-6 left-6">
+        <p className="text-[13px] text-white/70">{scene.phase}</p>
+        <p className="text-[clamp(1.1rem,1.5vw,1.45rem)] font-bold tracking-[-0.03em] text-white">{scene.title}</p>
+      </div>
     </div>
   );
 }

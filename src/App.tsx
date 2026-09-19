@@ -63,10 +63,9 @@ export default function App() {
         <SectionReveal direction="left">
           <Projects />
         </SectionReveal>
-        {/* Not wrapped: its scene column is lg:sticky, and a transformed or
-            clipped ancestor changes how sticky resolves. It animates its own
-            rows internally instead. */}
-        <InvestmentTypes />
+        <SectionReveal direction="up">
+          <InvestmentTypes />
+        </SectionReveal>
         <SectionReveal direction="right">
           <Expertise />
         </SectionReveal>
