@@ -36,8 +36,17 @@
      * That's what made everything, including the fixed centered nav and
      * the preloader, render as if centered on a wider canvas than what's
      * actually visible without scrolling sideways.
+     *
+     * It must be clip, not hidden. overflow-x: hidden forces the other axis
+     * to compute as auto, which makes the element a scroll container, and a
+     * scroll container here is what every position: sticky on the page then
+     * resolves against. Since html and body never actually scroll (the
+     * viewport does), nothing ever pinned: the Vores tilgang card deck and
+     * the Investeringstyper scene column both silently degraded to ordinary
+     * blocks that just scroll away. clip does the same visual clipping
+     * without creating a scroll container, so sticky keeps working.
      */
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   section[id] {
@@ -59,7 +68,8 @@
     color: var(--color-navy);
     font-family: var(--font-sans);
     font-weight: 400;
-    overflow-x: hidden;
+    /* clip, not hidden, for the same reason as on html above. */
+    overflow-x: clip;
   }
 
   /* Titles and figures are bold; everything else is regular weight and sentence case. */

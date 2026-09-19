@@ -15,6 +15,12 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * nothing. This fires once, on entry, over a fixed duration, so the movement
  * happens while the section is arriving and you see it happen.
  *
+ * The trigger is deliberately height independent: amount 'some' plus a bottom
+ * margin fires the moment the top edge crosses the lower eighth of the
+ * viewport. An amount fraction would mean a tall section had to push hundreds
+ * of pixels past the fold before anything started, which reads as the section
+ * simply not being there at all.
+ *
  * Never wrap a section containing position: sticky in this. The transform and
  * clip-path here both create a containing block, which changes how sticky
  * descendants resolve. Process and InvestmentTypes are deliberately left
@@ -45,7 +51,7 @@ export function SectionReveal({ children, direction = 'up', className = '' }: { 
       variants={VARIANTS[direction]}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.12 }}
+      viewport={{ once: true, amount: 'some', margin: '0px 0px -12% 0px' }}
       transition={{ duration: 1.05, ease: EASE, opacity: { duration: 0.7, ease: 'easeOut' } }}
       className={className}
       style={{ willChange: 'transform, opacity, clip-path' }}

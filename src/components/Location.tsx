@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { company, location } from '../data/content';
 import { fadeUp, VIEWPORT } from '../lib/motion';
 import { Button } from './ui/Button';
@@ -6,11 +7,81 @@ import { Button } from './ui/Button';
 const q = encodeURIComponent(location.query);
 const GOOGLE_EMBED = `https://www.google.com/maps?q=${q}&z=16&output=embed`;
 const GOOGLE_LINK = `https://www.google.com/maps/search/?api=1&query=${q}`;
-const APPLE_LINK = `https://maps.apple.com/?q=${q}`;
 
 /**
- * Office location: a navy-toned map in a card, with the address beside it
- * and one tap to open the route in Google Maps or Apple Maps.
+ * Copies the office address, with the label swapping to a confirmation and
+ * back. It replaces the Apple Maps link that used to sit here: that one
+ * handed the browser a maps: handoff URL, which on desktop resolves to
+ * nothing useful and took the tab with it. This never navigates at all, so
+ * there is nothing for it to break, and it is the more useful action next to
+ * a map that is already on screen.
+ */
+function CopyAddress() {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
+
+  const onCopy = useCallback(async () => {
+    const text = location.addressLines.join(', ');
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // Clipboard API needs a secure context; fall back to a throwaway node.
+      const el = document.createElement('textarea');
+      el.value = text;
+      el.setAttribute('readonly', '');
+      el.style.position = 'fixed';
+      el.style.opacity = '0';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setCopied(false), 2200);
+  }, []);
+
+  return (
+    <button
+      type="button"
+      onClick={onCopy}
+      aria-live="polite"
+      className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/40 bg-white/15 px-7 py-4 text-[15px] font-semibold text-white backdrop-blur-md"
+    >
+      <span
+        aria-hidden
+        className="absolute -inset-px translate-y-[102%] rounded-full bg-white transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0"
+      />
+      <span className="relative transition-colors duration-700 group-hover:text-navy">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.span
+            key={copied ? 'done' : 'idle'}
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            exit={{ y: '-100%', opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="block"
+          >
+            {copied ? location.copied : location.copy}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+      <span aria-hidden className="relative transition-colors duration-700 group-hover:text-navy">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+          {copied ? <path d="m3.5 8.5 3 3 6-6.5" /> : <><rect x="5.5" y="5.5" width="8" height="8" rx="1.8" /><path d="M10.5 3.5h-7a1 1 0 0 0-1 1v7" /></>}
+        </svg>
+      </span>
+    </button>
+  );
+}
+
+/**
+ * Office location: a navy-toned map in a card, with the address beside it,
+ * one tap to open the route in Google Maps, and one to copy the address.
  */
 export function Location() {
   return (
@@ -41,9 +112,7 @@ export function Location() {
             <Button href={GOOGLE_LINK} variant="light" external>
               {location.google}
             </Button>
-            <Button href={APPLE_LINK} variant="glass" external>
-              {location.apple}
-            </Button>
+            <CopyAddress />
           </div>
         </motion.div>
 

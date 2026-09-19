@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { hero } from '../data/content';
 import { EASE_EXPO } from '../lib/motion';
+import { useSlowVideo } from '../lib/useSlowVideo';
 import { Button } from './ui/Button';
 
 /** Full-bleed hero: the film fills the whole viewport, edge to edge, no frame. */
@@ -13,6 +14,8 @@ export function Hero({ ready }: { ready: boolean }) {
   const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
   const textY = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
   const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  useSlowVideo(videoRef);
 
   useEffect(() => {
     const v = videoRef.current;

@@ -63,15 +63,18 @@ export default function App() {
         <SectionReveal direction="left">
           <Projects />
         </SectionReveal>
-        <SectionReveal direction="up">
-          <InvestmentTypes />
-        </SectionReveal>
+        {/* Not wrapped: its scene column is lg:sticky, and a transformed or
+            clipped ancestor changes how sticky resolves. It animates its own
+            rows internally instead. */}
+        <InvestmentTypes />
         <SectionReveal direction="right">
           <Expertise />
         </SectionReveal>
-        <SectionReveal direction="up">
-          <Process />
-        </SectionReveal>
+        {/* Not wrapped, and it must stay that way: the card deck is built from
+            sticky siblings, which a transform or clip-path ancestor breaks.
+            Wrapping it also hid the first thousand pixels of a section four
+            viewports tall behind a clip, so it looked like it never arrived. */}
+        <Process />
         <SectionReveal direction="left">
           <Team />
         </SectionReveal>

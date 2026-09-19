@@ -324,7 +324,8 @@ export const location = {
   addressLines: ['C-Real ApS', 'Bredgade 45B', '1260 København K'],
   query: 'Bredgade 45B, 1260 København K, Danmark',
   google: 'Åbn i Google Maps',
-  apple: 'Åbn i Apple Maps',
+  copy: 'Kopiér adresse',
+  copied: 'Adresse kopieret',
 };
 
 export const footer = {
