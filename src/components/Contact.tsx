@@ -29,12 +29,19 @@ export function Contact() {
               <div className="flex flex-1 flex-col p-4">
                 <h3 className="min-h-[2.1em] text-[clamp(0.95rem,1.3vw,1.1rem)] leading-[1.2] text-white">{p.name}</h3>
                 <p className="mt-0.5 text-[12px] text-white/70">{p.role}</p>
-                <div className="mt-3 flex flex-col gap-1 text-[12px]">
-                  <a href={tel} className="font-semibold text-white hover:underline">
+                {/*
+                  These two are the whole point of the card, and on a phone
+                  they were 18px tall, well under the 44px a thumb needs. The
+                  padding gives each a real hit area without changing how the
+                  card reads, and -mx-1 keeps the text optically aligned with
+                  everything else in the column.
+                */}
+                <div className="mt-2 flex flex-col text-[12px]">
+                  <a href={tel} className="-mx-1 flex min-h-[38px] items-center px-1 font-semibold text-white hover:underline">
                     {p.phone}
                   </a>
-                  <a href={`mailto:${p.email}`} className="truncate text-white/85 hover:text-white hover:underline">
-                    {p.email}
+                  <a href={`mailto:${p.email}`} className="-mx-1 flex min-h-[38px] items-center px-1 text-white/85 hover:text-white hover:underline">
+                    <span className="truncate">{p.email}</span>
                   </a>
                 </div>
                 <div className="mt-auto pt-4">

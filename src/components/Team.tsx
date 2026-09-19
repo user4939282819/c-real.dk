@@ -50,7 +50,17 @@ export function Team() {
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
       >
-        <div className="relative">
+        {/*
+          The stage clips its own overflow.
+          Neighbouring portraits are absolutely positioned at x: ±82%, so on a
+          phone they reach roughly 30px past the right edge of the screen.
+          That was the one thing on the whole page still widening the document,
+          and it was only invisible because the root element clipped it. Root
+          clipping is a safety net, not a layout mechanism: any browser that
+          does not honour it there gets a sideways-scrolling page. Clipping it
+          here means the page fits on its own.
+        */}
+        <div className="relative overflow-hidden">
           <motion.div
             className="flex items-center justify-center"
             drag="x"
@@ -147,16 +157,27 @@ export function Team() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex items-center gap-2">
+          {/*
+            The dot is the indicator; the button around it is the target. An
+            8px dot is not tappable, so each one carries a 40px-tall hit area
+            and the visible dot sits inside it unchanged.
+          */}
+          <div className="-my-3 flex items-center">
             {people.map((p, i) => (
               <button
                 key={p.name}
                 type="button"
                 onClick={() => setIndex(i)}
                 aria-label={`Gå til ${p.name}`}
-                className="h-2 rounded-full bg-navy transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                style={{ width: i === index ? 28 : 8, opacity: i === index ? 1 : 0.3 }}
-              />
+                aria-current={i === index}
+                className="flex h-10 items-center px-1"
+              >
+                <span
+                  aria-hidden
+                  className="block h-2 rounded-full bg-navy transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  style={{ width: i === index ? 28 : 8, opacity: i === index ? 1 : 0.3 }}
+                />
+              </button>
             ))}
           </div>
         </div>

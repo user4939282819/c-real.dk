@@ -49,6 +49,24 @@
     overflow-x: clip;
   }
 
+  /*
+   * Fallback for browsers without overflow: clip (Safari before 16, and
+   * Safari has been unreliable about honouring clip on the root even since).
+   * There it reverts to hidden, which clips the same way but makes the
+   * element a scroll container and so disables position: sticky. A page that
+   * fits with a degraded card stack beats one that scrolls sideways.
+   *
+   * Either way this is only a safety net. Nothing in the layout may rely on
+   * it: every section is expected to fit on its own, which is verified by
+   * measuring the document width with these rules switched off.
+   */
+  @supports not (overflow: clip) {
+    html,
+    body {
+      overflow-x: hidden;
+    }
+  }
+
   section[id] {
     scroll-margin-top: 96px;
   }
